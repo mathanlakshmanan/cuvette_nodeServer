@@ -1,7 +1,5 @@
 const express = require('express');
 const cors = require('cors');
-const nodemailer = require('nodemailer');
-const jwt = require('jsonwebtoken');
 const DBConect = require('./config/dbConnection');
 const userRoute = require('./routes/userRoute');
 require('dotenv').config();

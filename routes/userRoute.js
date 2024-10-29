@@ -1,12 +1,14 @@
 const express = require('express');
 const router = express.Router()
 const userController = require('../controller/userController');
-const {verifySignup} = require('../middlewares');
+const {verifySignup, authJwt} = require('../middlewares');
 
 router.post('/register',[verifySignup.checkDuplicateUserEmail], userController.registerController);
-router.put('/mobile_verify/:id', userController.mobileVerifyController);
-router.put('/email_verify/:id',userController.emailVerifyController);
+router.put('/mobile_verify/:id', [authJwt.verifyToken],userController.mobileVerifyController);
+router.put('/email_verify/:id', [authJwt.verifyToken],userController.emailVerifyController);
+router.post('/interview', [authJwt.verifyToken],userController.interviewController);
 router.post('/login',userController.loginController);
+router.get('/logout',userController.logoutController);
 
 
 module.exports = router;

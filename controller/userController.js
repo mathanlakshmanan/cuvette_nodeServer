@@ -1,5 +1,6 @@
 const userService = require('../services/userService');
 const User = require('../models/userModel');
+const Job = require('../models/jobModel');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
@@ -67,9 +68,41 @@ const loginController = async(req, res)=>{
     
 }
 
+const logoutController = async(req, res)=>{    
+    try {
+    res.setHeader('Clear-Site-Data', '"cookies"');
+    res.status(200).json({ message: 'You are logged out!' });
+    } catch (error) {
+        if(error){
+            res.status(500).json({message:error});
+            return;
+       }
+    }
+}
+
+const interviewController = async(req, res)=>{
+    try {
+        const newjob = new Job({
+            jobtitle:req.body.jobtitle,
+            jobdescription:req.body.jobdescription,
+            experiencelevel:req.body.experiencelevel,
+            addcandidate:req.body.addcandidate,
+            enddate: req.body.enddate
+        });
+        const jobResult = await newjob.save();
+        if(jobResult){
+            res.status(201).json({data:jobResult, message:"Job Information added successfully!!!"})
+        }
+    } catch (error) {
+        res.status(500).json({message:error});
+    }
+}
+
 module.exports = {
     registerController,
     mobileVerifyController,
     emailVerifyController,
-    loginController
+    interviewController,
+    loginController,
+    logoutController
 }

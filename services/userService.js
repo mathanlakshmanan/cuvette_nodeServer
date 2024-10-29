@@ -95,13 +95,20 @@ const register = async(data)=>{
 
 const mobileVerify = async(data, user)=>{    
     
-    const dbData = await User.findById({_id:user.id},{mobileOTP:1});
+    const dbData = await User.findById({_id:user.id},{mobileOTP:1, mobileVerify:1});
     try {
+        if(dbData.mobileVerify === false){
         if(dbData.mobileOTP === data.mobileotp){
             const updateMobileVerify = await User.findByIdAndUpdate({_id:user.id}, {mobileVerify:true}, {new:true});
             return ({data:updateMobileVerify, message:"Mobile OTP Verification is Done"});
     }else{
         return ({data:"", message:"Mobile OTP Number is Invalid"});
+    }}else{
+        if(dbData.mobileOTP === data.mobileotp){
+        return ({data:"", message:"Mobile OTP Number Already verified"});
+        }else{
+            return ({data:"", message:"Mobile OTP Number Already verified And Provide Mobile OTP Number is Invalid"});
+        }
     }
     } catch (error) {
         console.log(error);
@@ -111,13 +118,21 @@ const mobileVerify = async(data, user)=>{
 
 const emailVerify = async(data, user)=>{    
     
-    const dbData = await User.findById({_id:user.id},{emailOTP:1});
+    const dbData = await User.findById({_id:user.id},{emailOTP:1, emailverify:1});
     try {
+        if(dbData.emailverify === false){
         if(dbData.emailOTP === data.emailotp){
             const updateEmailVerify = await User.findByIdAndUpdate({_id:user.id}, {emailverify:true}, {new:true});
             return ({data:updateEmailVerify, message:"Email OTP Verification is Done"});
     }else{
         return ({data:"", message:"Email OTP Number is Invalid"});
+    }}else{
+        if(dbData.emailOTP === data.emailotp){
+        return ({data:"", message:"Email OTP Number Already verified"});
+        }else{
+        return ({data:"", message:"Email OTP Number Already verified And Provide Email OTP Number is Invalid"});
+
+        }
     }
     } catch (error) {
         console.log(error);
