@@ -31,7 +31,7 @@ const loginController = async(req, res)=>{
        
         
         if(user === false){
-             res.status(404).json({message:"User Not Found"});
+             res.status(404).json({message:"User Not Found", code:404});
              return
         }
 
@@ -42,7 +42,7 @@ const loginController = async(req, res)=>{
         
        
         if(passwordCheck === false){
-             res.status(401).json({message:"Invalid Password"});
+             res.status(401).json({message:"Invalid Password", code:401});
              return
         }
         
@@ -57,11 +57,12 @@ const loginController = async(req, res)=>{
             id:user[0]._id,
             name:user[0].name,
             companyEmail:user[0].companyEmail,
-            token:token
+            token:token, 
+            code:200
         });
     } catch (error) {
         if(error){
-             res.status(500).json({message:error});
+             res.status(500).json({message:error, code:500});
              return;
         }
     }
@@ -74,7 +75,7 @@ const logoutController = async(req, res)=>{
     res.status(200).json({ message: 'You are logged out!' });
     } catch (error) {
         if(error){
-            res.status(500).json({message:error});
+            res.status(500).json({message:error, code:500});
             return;
        }
     }
@@ -91,7 +92,7 @@ const interviewController = async(req, res)=>{
         });
         const jobResult = await newjob.save();
         if(jobResult){
-            res.status(201).json({data:jobResult, message:"Job Information added successfully!!!"})
+            res.status(201).json({data:jobResult, message:"Job Information added successfully!!!", code:201})
         }
     } catch (error) {
         res.status(500).json({message:error});
