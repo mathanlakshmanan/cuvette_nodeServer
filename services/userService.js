@@ -86,9 +86,9 @@ const register = async(data)=>{
     
     const result = await user.save();
     if(result){
-       return ({data: result, message:"Kindly Check your Register Mobile and Email!!!"});
+       return ({data: result, message:"Kindly Check your Register Mobile and Email!!!", code:201});
     }else{
-        return ({data: "", message:"your Register Not Successed, Try Again!!!"});
+        return ({data: "", message:"your Register Not Successed, Try Again!!!", code:500});
     }
 }
 
