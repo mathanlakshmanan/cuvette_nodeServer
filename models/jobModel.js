@@ -14,7 +14,7 @@ const jobSchema = new mongoose.Schema({
         required:true
     },
     addcandidate:{
-        type:String,
+        type:Array,
         required:true
     },
     enddate:{

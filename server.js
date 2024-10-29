@@ -16,5 +16,4 @@ app.use("/api/v1", userRoute);
 let PORT = process.env.PORT || 8000;
 app.listen(PORT, ()=>{
     console.log(`server running On Port : ${PORT}`);
-    
 })
