@@ -116,7 +116,7 @@ const mobileVerifyController = async(req, res)=>{
     try {
         if(dbData.mobileVerify === false){
         if(dbData.mobileOTP == body.mobileotp){
-            const updateMobileVerify = await User.findByIdAndUpdate({_id:id}, {mobileVerify:true}, {new:true});
+            const updateMobileVerify = await User.findByIdAndUpdate({_id:ObjectId(id)}, {mobileVerify:true}, {new:true});
             res.status(200).json({data:updateMobileVerify, message:"Mobile OTP Verification is Done"});
     }else{
         res.status(304).json({data:"", message:"Mobile OTP Number is Invalid"});
@@ -141,7 +141,7 @@ const emailVerifyController = async(req, res)=>{
     try {
         if(dbData.emailverify === false){
         if(dbData.emailOTP == body.emailotp){
-            const updateEmailVerify = await User.findByIdAndUpdate({_id:id}, {emailverify:true}, {new:true});
+            const updateEmailVerify = await User.findByIdAndUpdate({_id:ObjectId(id)}, {emailverify:true}, {new:true});
             res.status(200).json({data:updateEmailVerify, message:"Email OTP Verification is Done"});
     }else{
         res.status(304).json({data:"", message:"Email OTP Number is Invalid"});
