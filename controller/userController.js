@@ -138,6 +138,10 @@ const emailVerifyController = async(req, res)=>{
     const id = req.params.id;
     
     const dbData = await User.findById({_id:id},{emailOTP:1, emailverify:1});
+    console.log("mk1", dbData.emailOTP == body.emailotp);
+    console.log("mkdb", dbData.emailOTP);
+    console.log("mkb", body.emailotp);
+    
     try {
         if(dbData.emailverify == false){
         if(dbData.emailOTP == body.emailotp){
