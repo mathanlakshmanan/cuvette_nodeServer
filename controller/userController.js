@@ -119,12 +119,12 @@ const mobileVerifyController = async(req, res)=>{
             const updateMobileVerify = await User.findByIdAndUpdate({_id:id}, {mobileVerify:true}, {new:true});
             res.status(200).json({data:updateMobileVerify, message:"Mobile OTP Verification is Done"});
     }else{
-        res.status(304).json({data:"", message:"Mobile OTP Number is Invalid"});
+        res.status(200).json({data:"", message:"Mobile OTP Number is Invalid"});
     }}else{
         if(dbData.mobileOTP == body.mobileotp){
-            res.status(304).json({data:"", message:"Mobile OTP Number Already verified"});
+            res.status(200).json({data:"", message:"Mobile OTP Number Already verified"});
         }else{
-            res.status(304).json({data:"", message:"Mobile OTP Number Already verified And Provide Mobile OTP Number is Invalid"});
+            res.status(200).json({data:"", message:"Mobile OTP Number Already verified And Provide Mobile OTP Number is Invalid"});
         }
     }
     } catch (error) {
@@ -144,12 +144,12 @@ const emailVerifyController = async(req, res)=>{
             const updateEmailVerify = await User.findByIdAndUpdate({_id:id}, {emailverify:true}, {new:true});
             res.status(200).json({data:updateEmailVerify, message:"Email OTP Verification is Done"});
     }else{
-        res.status(304).json({data:"", message:"Email OTP Number is Invalid"});
+        res.status(200).json({data:"", message:"Email OTP Number is Invalid"});
     }}else{
         if(dbData.emailOTP === body.emailotp){
-            res.status(304).json({data:"", message:"Email OTP Number Already verified"});
+            res.status(200).json({data:"", message:"Email OTP Number Already verified"});
         }else{
-            res.status(304).json({data:"", message:"Email OTP Number Already verified And Provide Email OTP Number is Invalid"});
+            res.status(200).json({data:"", message:"Email OTP Number Already verified And Provide Email OTP Number is Invalid"});
 
         }
     }
