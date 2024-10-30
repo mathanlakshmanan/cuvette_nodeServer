@@ -99,11 +99,22 @@ const interviewController = async(req, res)=>{
     }
 }
 
+const otpCheckController = async(req,res)=>{
+    const otpStatus = await User.findById({_id:req.params.id});
+    
+    const status = {
+        emailverify:otpStatus.emailverify, 
+        mobileVerify:otpStatus.mobileVerify
+    } 
+    res.status(200).json({data:status, code:200});
+}
+
 module.exports = {
     registerController,
     mobileVerifyController,
     emailVerifyController,
     interviewController,
+    otpCheckController,
     loginController,
     logoutController
 }

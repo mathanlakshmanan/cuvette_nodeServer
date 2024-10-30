@@ -6,7 +6,6 @@ var https = require('follow-redirects').https;
 var fs = require('fs');
 
 
-
 const register = async(data)=>{    
     const {name, password, phoneNo, companyName, companyEmail, employeeSize } = data;
     const user = new User({
@@ -85,8 +84,24 @@ const register = async(data)=>{
       });
     
     const result = await user.save();
+    
+    const token = jwt.sign({id:result._id}, process.env.SECRET,
+        {
+            algorithm:"HS256",
+            allowInsecureKeySizes:true,
+            expiresIn:86400
+        });
+
+        const Value = {
+            id:result._id,
+            name:result.name,
+            companyEmail:result.companyEmail,
+            token:token, 
+            code:200
+        }
+    
     if(result){
-       return ({data: result, message:"Kindly Check your Register Mobile and Email!!!", code:201});
+       return ({data: Value, message:"Kindly Check your Register Mobile and Email!!!", code:201});
     }else{
         return ({data: "", message:"your Register Not Successed, Try Again!!!", code:500});
     }
